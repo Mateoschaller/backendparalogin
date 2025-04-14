@@ -6,11 +6,10 @@ const bcrypt = require('bcrypt');
 const Usuario = require('./models/Usuario');
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(bodyParser.json());
-
 
 mongoose.connect('mongodb+srv://admin:admin@cluster0.ho6lh6g.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
   useNewUrlParser: true,
@@ -19,7 +18,6 @@ mongoose.connect('mongodb+srv://admin:admin@cluster0.ho6lh6g.mongodb.net/?retryW
 .then(() => console.log('✅ Conectado a MongoDB Atlas'))
 .catch((err) => console.error('❌ Error conectando a MongoDB:', err));
 
-// Ruta para login
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -42,5 +40,5 @@ app.post('/login', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Servidor corriendo en puerto ${PORT}`);
 });
